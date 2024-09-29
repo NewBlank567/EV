@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    margin-top: 40px;
+    padding: 20px;
+    font-style: italic;
+    color: aqua;
+    background-color: wheat;
+}
+
+h1 {
+    text-align: center;
+}
+
+.profile {
+    margin-top: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    color: blue;
+    background-color: skyblue;
+}
+
+.profile img {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.profile h2 {
+    font-size: xx-large;
+  font-weight: bolder;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile p {
+    margin-top: 10px;
+    text-align: center;
+}

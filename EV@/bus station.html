@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="image/ev final logo.jpg" />
+    <link rel="stylesheet" href="bus fare.css" />
+    <link rel="stylesheet" href="bus fare.js" />
+    <link rel="logo" href="image/ev final logo.jpg" />
+    <img
+      class="logo"
+      src="image/ev final logo.jpg"
+      alt="Logo For EV"
+      style="margin-left: 555px"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="jav.js" />
+    <nav>
+      <div class="navlinks" id="navlink">
+        <i class="fa fa-times-circle" onclick="hidemenu()"></i>
+        <ul>
+          <li><a href="Home.html">HOME</a></li>
+          <li><a href="user interface.html">PROFILE</a></li>
+          <li><a href="about us.html">ABOUT US</a></li>
+        </ul>
+      </div>
+      <i class="fa fa-bars" onclick="showmenu()"></i>
+    </nav>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>मेरो EV</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>मेरो EV-LOCATION</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        width: 65%;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" style="float: left"></div>
+    <script src="resources/leaflet/leaflet.js"></script>
+    <script src="resources/plugins/leaflet-routing-machine.js"></script>
+    <script src="resources/plugins/control.Geocoder.js"></script>
+    <form
+      id="bookingForm"
+      style="
+        width: 400px;
+        position: relative;
+        align-content: end;
+        float: right;
+        margin-right: 30px;
+      "
+    >
+    <div class="wrapper" style="padding-bottom: 20px; margin-right: 30px;" >
+      <button id="navigatorButton" style="width: 300px;">
+        Toggle Routing
+      </button>
+   
+        <label for="name">Name:</label>
+        <br />
+        <input type="text" id="name" required placeholder="Enter your name" />
+        <br />
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" required placeholder="Number" />
+        <br />
+        <label for="seat">Select a Charging Point:</label>
+        <select name="Charging Station" id="Charging Station">
+          <optgroup label="Begnas Tal Charging Station">
+            <option value="1">port 1</option>
+            <option value="2">port 2</option>
+            <option value="3">port 3</option>
+            <option value="4">port 4</option>
+            <option value="5">port 5</option>
+            <option value="6">port 6</option>
+          </optgroup>
+          <optgroup label="Mahendra Cave Charging Station">
+            <option value="1">port 1</option>
+            <option value="2">port 2</option>
+            <option value="3">port 3</option>
+            <option value="4">port 4</option>
+            <option value="5">port 5</option>
+            <option value="6">port 6</option>
+          </optgroup>
+          <optgroup label="Chhorepatan Charging Station">
+            <option value="1">port 1</option>
+            <option value="2">port 2</option>
+            <option value="3">port 3</option>
+            <option value="4">port 4</option>
+            <option value="5">port 5</option>
+            <option value="6">port 6</option>
+          </optgroup>
+          <optgroup label="Malepatan Charging Station">
+            <option value="1">port 1</option>
+            <option value="2">port 2</option>
+            <option value="3">port 3</option>
+            <option value="4">port 4</option>
+            <option value="5">port 5</option>
+            <option value="6">port 6</option>
+          </optgroup>
+          <optgroup label="Lake Side Charging Station">
+            <option value="1">port 1</option>
+            <option value="2">port 2</option>
+            <option value="3">port 3</option>
+            <option value="4">port 4</option>
+            <option value="5">port 5</option>
+            <option value="6">port 6</option>
+          </optgroup>
+        </select>
+
+        <button type="submit">BOOK YOUR <br />STATION</button>
+      </form>
+    </div>
+    <div id="map"></div>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+      let tLat, tLng;
+      let clickCount = 0;
+      var secondmarker;
+      var map = L.map("map");
+      map.setView([28.238, 83.9956], 11);
+
+      // Create tile layers for different map styles
+      var openStreetMapLayer = L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom: 18,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }
+      );
+      var satelliteLayer = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        {
+          maxZoom: 15,
+          attribution:
+            "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+        }
+      );
+      var topographyLayer = L.tileLayer(
+        "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+        {
+          maxZoom: 15,
+          attribution:
+            '&copy; <a href="https://opentopomap.org">OpenTopoMap</a> contributors',
+        }
+      );
+
+      // Define base layers and overlay layers
+      var baseLayers = {
+        OpenStreetMap: openStreetMapLayer,
+        Satellite: satelliteLayer,
+        Topography: topographyLayer,
+      };
+
+      // Add OpenStreetMap layer as default
+      openStreetMapLayer.addTo(map);
+
+      // Create layer control and add it to the map
+      L.control.layers(baseLayers).addTo(map);
+
+      var secondmarker = null; // Variable to store the previous marker
+      var routingControl = null; // Variable to store the routing control
+
+      map.on("click", function (e) {
+        console.log(e);
+
+        // Remove the previous marker if it exists
+        if (secondmarker) {
+          map.removeLayer(secondmarker);
+          if (routingControl) {
+            map.removeControl(routingControl);
+          }
+        }
+
+        // Create a new marker at the clicked location
+        secondmarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+
+        // Create a new routing control with updated waypoints
+        if (routingControl) {
+          routingControl.setWaypoints([
+            L.latLng(e.latlng.lat, e.latlng.lng),
+            L.latLng(tLat, tLng),
+          ]);
+        }
+      });
+
+      navigator.geolocation.watchPosition(success, error);
+
+      let marker, circle, zoomed;
+
+      function success(pos) {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        if (marker) {
+          map.removeLayer(marker);
+          map.removeLayer(circle);
+        }
+        tLat = lat;
+        tLng = lng;
+
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        if (!zoomed) {
+          zoomed = map.fitBounds(circle.getBounds());
+        }
+
+        map.setView([lat, lng]);
+      }
+      function error(err) {
+        if (err.code == 1) {
+          alert("Please Allow Your Location");
+        } else {
+          alert("Cannot get current location");
+        }
+      }
+
+      var geojson = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            properties: {
+              Name: "Begnas Tal Charging Station",
+              Station: 6,
+              Available: 4,
+              "marker-color": "#00FF00",
+              "marker-size": "medium",
+              "marker-symbol": "circle-stroked",
+            },
+            geometry: {
+              coordinates: [84.09052193486235, 28.16419090286864],
+              type: "Point",
+            },
+            id: 5,
+          },
+          {
+            type: "Feature",
+            properties: {
+              Name: "Lakeside Charging Station",
+              Station: 6,
+              Available: 2,
+              "marker-color": "#00FF00",
+              "marker-size": "medium",
+              "marker-symbol": "circle-stroked",
+            },
+            geometry: {
+              coordinates: [83.95778724356416, 28.20681248720659],
+              type: "Point",
+            },
+            id: 1,
+          },
+          {
+            type: "Feature",
+            properties: {
+              Name: "Mahendra Cave Charging Station",
+              Available: 3,
+              Station: 6,
+              "marker-color": "#00FF00",
+              "marker-size": "medium",
+              "marker-symbol": "circle-stroked",
+            },
+            geometry: {
+              coordinates: [83.97987743008554, 28.27140713161897],
+              type: "Point",
+            },
+            id: 2,
+          },
+          {
+            type: "Feature",
+            properties: {
+              Name: "Chhorepatan Charging Station",
+              Station: 6,
+              Available: 1,
+              "marker-color": "#00FF00",
+              "marker-size": "medium",
+              "marker-symbol": "circle-stroked",
+            },
+            geometry: {
+              coordinates: [83.95304513502037, 28.191420515931483],
+              type: "Point",
+            },
+            id: 3,
+          },
+          {
+            type: "Feature",
+            properties: {
+              Name: "Malepatan Charging Station",
+              Station: 6,
+              Available: 2,
+              "marker-color": "#00FF00",
+              "marker-size": "medium",
+              "marker-symbol": "circle-stroked",
+            },
+            geometry: {
+              coordinates: [83.97740532656303, 28.218797237068017],
+              type: "Point",
+            },
+            id: 4,
+          },
+        ],
+      };
+      L.geoJSON(geojson, {
+        pointToLayer: function (feature, latlng) {
+          // Define the marker icon
+          var customIcon = L.icon({
+            iconUrl: "image/map icon.png",
+            iconSize: [32, 32], // Adjust the size of the icon if needed
+            iconAnchor: [16, 32], // Adjust the anchor point of the icon if needed
+          });
+
+          // Create the marker with the custom icon
+          return L.marker(latlng, { icon: customIcon });
+        },
+        onEachFeature: function (feature, layer) {
+          // Create a unique popup style for each feature
+          var popupStyle = "background-color: #00e7ff61; color: black;";
+
+          // Create the popup content with the custom style
+          var popupContent =
+            "<h3 style='" +
+            popupStyle +
+            "'>" +
+            feature.properties.Name +
+            "</h3>" +
+            "<p style='" +
+            popupStyle +
+            "'>" +
+            "Total Port: " +
+            feature.properties.Station +
+            "</p>" +
+            "<p style='" +
+            popupStyle +
+            "'>" +
+            "Available: " +
+            feature.properties.Available +
+            "</p>";
+
+          // Bind the popup content to the layer
+          layer.bindPopup(popupContent);
+        },
+      }).addTo(map);
+
+      // Toggle Routing Button
+      var navigatorButton = document.getElementById("navigatorButton");
+      var routingEnabled = false;
+
+      navigatorButton.addEventListener("click", function () {
+        if (!routingEnabled) {
+          // Create routing control with alternative routes
+          routingControl = L.Routing.control({
+            waypoints: [
+              L.latLng(
+                secondmarker.getLatLng().lat,
+                secondmarker.getLatLng().lng
+              ),
+              L.latLng(tLat, tLng),
+            ],
+            routeWhileDragging: true,
+            altLineOptions: {
+              styles: [{ color: "yellow", opacity: 0.6, weight: 4 }],
+            },
+          }).addTo(map);
+
+          routingEnabled = true;
+          navigatorButton.textContent = "Disable Routing";
+        } else {
+          // Disable routing control and remove from the map
+          map.removeControl(routingControl);
+          routingControl = null;
+
+          routingEnabled = false;
+          navigatorButton.textContent = "Enable Routing";
+        }
+      });
+    </script>
+  </body>
+</html>

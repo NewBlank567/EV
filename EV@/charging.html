@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="image/ev final logo.jpg" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="jav.js" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="booking.js" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charging</title>
+  </head>
+  <body>
+    <form id="bookingForm">
+      <label for="name">Name:</label>
+      <br />
+      <input type="text" id="name" required placeholder="Enter your name" />
+      <br />
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required placeholder="Number" />
+      <br />
+      <label for="seat">Select a Charging Point:</label>
+      <select name="Charging Station" id="Charging Station">
+        <optgroup label="Begnas Tal Charging Station">
+          <option value="1">port 1</option>
+          <option value="2">port 2</option>
+          <option value="3">port 3</option>
+          <option value="4">port 4</option>
+          <option value="5">port 5</option>
+          <option value="6">port 6</option>
+        </optgroup>
+        <optgroup label="Mahendra Cave Charging Station">
+          <option value="1">port 1</option>
+          <option value="2">port 2</option>
+          <option value="3">port 3</option>
+          <option value="4">port 4</option>
+          <option value="5">port 5</option>
+          <option value="6">port 6</option>
+        </optgroup>
+        <optgroup label="Chhorepatan Charging Station">
+          <option value="1">port 1</option>
+          <option value="2">port 2</option>
+          <option value="3">port 3</option>
+          <option value="4">port 4</option>
+          <option value="5">port 5</option>
+          <option value="6">port 6</option>
+        </optgroup>
+        <optgroup label="Malepatan Charging Station">
+          <option value="1">port 1</option>
+          <option value="2">port 2</option>
+          <option value="3">port 3</option>
+          <option value="4">port 4</option>
+          <option value="5">port 5</option>
+          <option value="6">port 6</option>
+        </optgroup>
+        <optgroup label="Lake Side Charging Station">
+          <option value="1">port 1</option>
+          <option value="2">port 2</option>
+          <option value="3">port 3</option>
+          <option value="4">port 4</option>
+          <option value="5">port 5</option>
+          <option value="6">port 6</option>
+        </optgroup>
+      </select>
+
+      <button type="submit">Book</button>
+    </form>
+
+    <div id="bookedSeatInfo"></div>
+    <a href="Home.html" style="text-decoration: none">BACK</a>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+.container {
+    position: absolute;
+    width: 400px;
+    margin-right: 0px;
+    margin-left: 940px;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  #result {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .wrapper{
+        margin-left:px;
+    width: 330px;
+    padding: 2 rem 1rem;
+    margin: 50px ;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}

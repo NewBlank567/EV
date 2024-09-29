@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="image/ev final logo.jpg" />
+    <title>ADMIN login</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="jav.js" />
+    <link rel="stylesheet" href="Admin login.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .container {
+        background-color: #f1f1f1;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .cancelbtn,
+      .forgot-password-link {
+        width: 150px;
+        height: 40px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .cancelbtn {
+        background-color: #555;
+        color: white;
+        border: none;
+      }
+
+      .cancelbtn:hover {
+        background-color: #444;
+      }
+
+      .forgot-password-link {
+        display: inline-block;
+        background: none;
+        border: none;
+        color: #4caf50;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .forgot-password-link:hover {
+        color: #45a049;
+      }
+    </style>
+  </head>
+  <body style="background-color: #dfe9f5">
+    <div class="wrapper">
+      <h3>ADMIN <br />LOGIN</h3>
+      <div class="container">
+        <img
+          src="image/Avatar-removebg-preview-removebg-preview.png"
+          alt="Avatar"
+          class="avatar"
+          style="margin-left: 100px"
+        />
+      </div>
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required />
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required />
+
+      <a href="admin front.html" class="button2">LOGIN</a>
+      <div class="container">
+        <a href="Home.html" class="button2">GO BACK</a>
+        <a href="#" class="forgot-password-link">FORGOT PASSWORD</a>
+      </div>
+      <br />
+      <div id="id01" class="modal">
+        <form
+          class="modal-content animate"
+          action="/action_page.php"
+          method="post"
+        >
+          <div class="container">
+            <label for="uname"><b>E-mail</b></label>
+            <input
+              type="text"
+              placeholder="Enter your Email"
+              name="uname"
+              required
+            />
+          </div>
+
+          <div class="button">
+            <a href="conformation otp.html">send</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      // Get the modal
+      var modal = document.getElementById("id01");
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    </script>
+  </body>
+</html>
